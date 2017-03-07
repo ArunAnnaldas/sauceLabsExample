@@ -31,7 +31,7 @@ public class SampleSauceTest implements SauceOnDemandSessionIdProvider, SauceOnD
 
 	
 	WebDriver driver;
-    public SauceOnDemandAuthentication authentication = new SauceOnDemandAuthentication("SauceUserName", "SauceAccessKey");
+    public SauceOnDemandAuthentication authentication = new SauceOnDemandAuthentication("ArunAnnaldas", "3717088d-9f3c-40bd-8ad0-4f4ff313f5fb");
     private ThreadLocal<WebDriver> webDriver = new ThreadLocal<WebDriver>();
     private ThreadLocal<String> sessionId = new ThreadLocal<String>();
 
