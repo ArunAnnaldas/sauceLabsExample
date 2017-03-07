@@ -26,39 +26,15 @@ import com.saucelabs.common.SauceOnDemandSessionIdProvider;
 import com.saucelabs.testng.SauceOnDemandAuthenticationProvider;
 import com.saucelabs.testng.SauceOnDemandTestListener;
 
-
-/**
- * Simple TestNG test which demonstrates being instantiated via a DataProvider in order to supply multiple browser combinations.
- *
- * @author Ross Rowe
- */
 @Listeners({SauceOnDemandTestListener.class})
 public class SampleSauceTest implements SauceOnDemandSessionIdProvider, SauceOnDemandAuthenticationProvider {
 
 	
 	WebDriver driver;
-    /**
-     * Constructs a {@link com.saucelabs.common.SauceOnDemandAuthentication} instance using the supplied user name/access key.  To use the authentication
-     * supplied by environment variables or from an external file, use the no-arg {@link com.saucelabs.common.SauceOnDemandAuthentication} constructor.
-     */
     public SauceOnDemandAuthentication authentication = new SauceOnDemandAuthentication("SauceUserName", "SauceAccessKey");
-
-    /**
-     * ThreadLocal variable which contains the  {@link WebDriver} instance which is used to perform browser interactions with.
-     */
     private ThreadLocal<WebDriver> webDriver = new ThreadLocal<WebDriver>();
-
-    /**
-     * ThreadLocal variable which contains the Sauce Job Id.
-     */
     private ThreadLocal<String> sessionId = new ThreadLocal<String>();
 
-    /**
-     * DataProvider that explicitly sets the browser combinations to be used.
-     *
-     * @param testMethod
-     * @return
-     */
     @DataProvider(name = "hardCodedBrowsers", parallel = true)
     public static Object[][] sauceBrowserDataProvider(Method testMethod) {
         return new Object[][]{
@@ -67,18 +43,6 @@ public class SampleSauceTest implements SauceOnDemandSessionIdProvider, SauceOnD
         };
     }
 
-    /**
-     * /**
-     * Constructs a new {@link RemoteWebDriver} instance which is configured to use the capabilities defined by the browser,
-     * version and os parameters, and which is configured to run against ondemand.saucelabs.com, using
-     * the username and access key populated by the {@link #authentication} instance.
-     *
-     * @param browser Represents the browser to be used as part of the test run.
-     * @param version Represents the version of the browser to be used as part of the test run.
-     * @param os Represents the operating system to be used as part of the test run.
-     * @return
-     * @throws MalformedURLException if an error occurs parsing the url
-     */
     public WebDriver createDriver(String browser, String version, String os) throws MalformedURLException {
 
         DesiredCapabilities capabilities = new DesiredCapabilities();
@@ -92,7 +56,6 @@ public class SampleSauceTest implements SauceOnDemandSessionIdProvider, SauceOnD
                 new URL("http://" + authentication.getUsername() + ":" + authentication.getAccessKey() + "@ondemand.saucelabs.com:80/wd/hub"),
                 capabilities));
         sessionId.set(((RemoteWebDriver) getWebDriver()).getSessionId().toString());
-        //driver.get("https://joecolantonio.com/SeleniumTestPage.html");
         return webDriver.get();
     }
 
@@ -104,36 +67,11 @@ public class SampleSauceTest implements SauceOnDemandSessionIdProvider, SauceOnD
         driver.quit();
     }
     
-   /* @Test
-    public void testPage() throws Exception
-    {
-    	assertEquals("Selenium WebDriver Validation",driver.getTitle());
-    }
-    
-    @Test
-    public void SelectDropDown() throws Exception
-    {
-    	Select dropdown = new Select(driver.findElement(By.name("about")));
-    	dropdown.selectByVisibleText("Java");
-    	
-    	WebElement valueField = driver.findElement(By.name("ans"));
-    	assertEquals("Enabled",valueField.getAttribute("value"));
-    	
-    	System.out.println("isjava installed???" + valueField.getAttribute("value"));
-    }*/
-    
-    /**
-     * @return the {@link WebDriver} for the current thread
-     */
     public WebDriver getWebDriver() {
         System.out.println("WebDriver" + webDriver.get()); 
         return webDriver.get();
     }
 
-    /**
-     *
-     * @return the Sauce Job id for the current thread
-     */
     public String getSessionId() {
         return sessionId.get();
     }
