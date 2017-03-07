@@ -41,7 +41,7 @@ public class SampleSauceTest implements SauceOnDemandSessionIdProvider, SauceOnD
      * Constructs a {@link com.saucelabs.common.SauceOnDemandAuthentication} instance using the supplied user name/access key.  To use the authentication
      * supplied by environment variables or from an external file, use the no-arg {@link com.saucelabs.common.SauceOnDemandAuthentication} constructor.
      */
-    public SauceOnDemandAuthentication authentication = new SauceOnDemandAuthentication("ArunAnnaldas", "3717088d-9f3c-40bd-8ad0-4f4ff313f5fb");
+    public SauceOnDemandAuthentication authentication = new SauceOnDemandAuthentication("SauceUserName", "SauceAccessKey");
 
     /**
      * ThreadLocal variable which contains the  {@link WebDriver} instance which is used to perform browser interactions with.
