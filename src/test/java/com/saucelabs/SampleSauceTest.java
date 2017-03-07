@@ -28,7 +28,6 @@ import com.saucelabs.testng.SauceOnDemandTestListener;
 
 @Listeners({SauceOnDemandTestListener.class})
 public class SampleSauceTest implements SauceOnDemandSessionIdProvider, SauceOnDemandAuthenticationProvider {
-
 	
 	WebDriver driver;
     public SauceOnDemandAuthentication authentication = new SauceOnDemandAuthentication("ArunAnnaldas", "3717088d-9f3c-40bd-8ad0-4f4ff313f5fb");
@@ -38,8 +37,11 @@ public class SampleSauceTest implements SauceOnDemandSessionIdProvider, SauceOnD
     @DataProvider(name = "hardCodedBrowsers", parallel = true)
     public static Object[][] sauceBrowserDataProvider(Method testMethod) {
         return new Object[][]{
-                new Object[]{"internet explorer", "11", "Windows 8.1"},
+                new Object[]{"firefox", "11", "Windows 8.1"},
                 new Object[]{"safari", "6", "OSX 10.8"},
+                new Object[]{"chrome", "11", "Windows 8.1"},
+                new Object[]{"internet explorer", "11", "Windows 8.1"},
+                new Object[]{"safari", "11", "Windows 8.1"},
         };
     }
 
@@ -76,10 +78,6 @@ public class SampleSauceTest implements SauceOnDemandSessionIdProvider, SauceOnD
         return sessionId.get();
     }
 
-    /**
-     *
-     * @return the {@link SauceOnDemandAuthentication} instance containing the Sauce username/access key
-     */
     @Override
     public SauceOnDemandAuthentication getAuthentication() {
         return authentication;
